@@ -1,53 +1,234 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Test</title>
-  <style>
-    body {
-      font-family: system-ui, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-      text-align: center;
-    }
-    h1 {
-      font-size: 3rem;
-      margin: 0.5em 0;
-    }
-    p {
-      font-size: 1.2rem;
-      max-width: 600px;
-    }
-    a {
-      margin-top: 2em;
-      display: inline-block;
-      padding: 0.7em 1.5em;
-      border-radius: 8px;
-      background: #fff;
-      color: #2a5298;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background 0.3s, color 0.3s;
-    }
-    a:hover {
-      background: #2a5298;
-      color: #fff;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biomoleküle Lern-Quiz</title>
+<style>
+body {
+font-family: Arial, sans-serif;
+margin: 0;
+padding: 20px;
+background-color: #f4f4f9;
+color: #333;
+}
+.container {
+max-width: 800px;
+margin: 0 auto;
+background-color: #fff;
+padding: 30px;
+border-radius: 10px;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+h1 {
+color: #4CAF50;
+text-align: center;
+border-bottom: 2px solid #eee;
+padding-bottom: 10px;
+margin-bottom: 30px;
+}
+.quiz-card {
+background-color: #e8f5e9;
+padding: 20px;
+margin-bottom: 20px;
+border-radius: 8px;
+border-left: 5px solid #4CAF50;
+}
+.question {
+font-size: 1.1em;
+margin-bottom: 15px;
+font-weight: bold;
+}
+.options label {
+display: block;
+margin-bottom: 10px;
+padding: 8px;
+background-color: #fff;
+border: 1px solid #ccc;
+border-radius: 5px;
+cursor: pointer;
+transition: background-color 0.2s;
+}
+.options label:hover {
+background-color: #ddd;
+}
+.feedback {
+margin-top: 15px;
+padding: 10px;
+border-radius: 5px;
+display: none; /* Initial versteckt */
+}
+.correct {
+background-color: #c8e6c9;
+color: #2e7d32;
+}
+.incorrect {
+background-color: #ffcdd2;
+color: #c62828;
+}
+.score-box {
+text-align: center;
+font-size: 1.2em;
+padding: 15px;
+background-color: #3f51b5;
+color: white;
+border-radius: 8px;
+margin-top: 30px;
+}
+button {
+display: block;
+width: 100%;
+padding: 10px;
+background-color: #4CAF50;
+color: white;
+border: none;
+border-radius: 5px;
+font-size: 1.1em;
+cursor: pointer;
+margin-top: 20px;
+transition: background-color 0.3s;
+}
+button:hover {
+background-color: #388e3c;
+}
+</style>
 </head>
 <body>
-  <h1>DU BIST GAY 👋</h1>
-  <p>
-    JA, BIST DU
-  </p>
-  <a href="https://github.com/">Folg mir du Fag</a>
+
+<div class="container">
+<h1>🔬 Biomoleküle Lern-Quiz (Fette, Proteine, Kohlenhydrate)</h1>
+
+<div id="quiz-area">
+</div>
+
+<button onclick="checkAnswers()">Antworten prüfen</button>
+
+<div id="score-box" class="score-box">
+Dein aktueller Punktestand: 0 / 0
+</div>
+</div>
+
+<script>
+const questions = [
+{
+topic: "Kohlenhydrate",
+question: "Welche funktionelle Gruppe ist der Kern sowohl von Aldehyden als auch von Ketonen?",
+options: ["Hydroxylgruppe (OH)", "Carboxylgruppe (COOH)", "Carbonylgruppe (C=O)", "Aminogruppe (NH2)"],
+answer: "Carbonylgruppe (C=O)",
+explanation: "Die Carbonylgruppe (C=O) besteht aus einem doppelt gebundenen Kohlenstoffatom an einem Sauerstoffatom und ist zentral für die Aldehyde und Ketone der Kohlenhydrate. Aldehyde haben sie am Ende, Ketone in der Mitte."
+},
+{
+topic: "Fette",
+question: "Wie nennt man die Bindung, die Glycerin mit Fettsäuren verbindet, um ein Triglycerid zu bilden?",
+options: ["Peptidbindung", "Glycosidische Bindung", "Esterbindung", "Wasserstoffbrückenbindung"],
+answer: "Esterbindung",
+explanation: "Fette entstehen durch die Reaktion eines Alkohols (Glycerin) mit einer Säure (Fettsäure) unter Abspaltung von Wasser. Die dabei entstehende Bindung wird Esterbindung genannt."
+},
+{
+topic: "Proteine",
+question: "Was ist die Primärstruktur eines Proteins?",
+options: ["Die dreidimensionale Faltung des Polypeptids.", "Die Verknüpfung des Proteins mit einer prosthetischen Gruppe.", "Die genaue Reihenfolge der Aminosäuren.", "Die Helix- oder Faltblattstruktur."],
+answer: "Die genaue Reihenfolge der Aminosäuren.",
+explanation: "Die Primärstruktur beschreibt die lineare Reihenfolge der Aminosäuren. Diese Reihenfolge ist entscheidend, da sie bestimmt, wie sich das Protein faltet (Sekundär- und Tertiärstruktur) und somit seine Funktion festlegt."
+},
+{
+topic: "Kohlenhydrate",
+question: "Welche Monosaccharide bilden zusammen das Disaccharid Saccharose?",
+options: ["Glucose und Galactose", "Glucose und Glucose", "Glucose und Fructose", "Fructose und Galactose"],
+answer: "Glucose und Fructose",
+explanation: "Saccharose (Haushaltszucker) besteht aus einem Molekül Glucose und einem Molekül Fructose, die durch eine glycosidische Bindung verbunden sind."
+},
+{
+topic: "Fette",
+question: "Welche Art von Fettsäuren findet man tendenziell in tierischen Fetten, die bei Raumtemperatur fest sind?",
+options: ["Einfach ungesättigte Fettsäuren", "Mehrfach ungesättigte Fettsäuren", "Gesättigte Fettsäuren", "Essentielle Fettsäuren"],
+answer: "Gesättigte Fettsäuren",
+explanation: "Gesättigte Fettsäuren haben keine Doppelbindungen, sind daher starrer und haben einen höheren Schmelzpunkt. Sie sind oft in tierischen Fetten zu finden."
+},
+{
+topic: "Proteine",
+question: "Wie nennt man die Aminosäuren, die der menschliche Körper nicht selbst herstellen kann und daher über die Nahrung aufnehmen muss?",
+options: ["Saure Aminosäuren", "Basische Aminosäuren", "Essentielle Aminosäuren", "Hydrophile Aminosäuren"],
+answer: "Essentielle Aminosäuren",
+explanation: "Essentielle Aminosäuren müssen über die Nahrung aufgenommen werden, da der Körper sie nicht selbst synthetisieren kann."
+}
+];
+
+const quizArea = document.getElementById('quiz-area');
+const scoreBox = document.getElementById('score-box');
+let score = 0;
+let attemptedQuestions = 0;
+
+// Funktion zum Anzeigen der Fragen
+function renderQuiz() {
+questions.forEach((q, index) => {
+const card = document.createElement('div');
+card.className = 'quiz-card';
+card.innerHTML = `
+<div class="question">${index + 1}. (${q.topic}) ${q.question}</div>
+<div class="options" id="options-${index}">
+${q.options.map(option => `
+<label>
+<input type="radio" name="question${index}" value="${option}">
+${option}
+</label>
+`).join('')}
+</div>
+<div class="feedback" id="feedback-${index}"></div>
+`;
+quizArea.appendChild(card);
+});
+}
+
+// Funktion zur Überprüfung der Antworten
+function checkAnswers() {
+score = 0;
+attemptedQuestions = 0;
+
+questions.forEach((q, index) => {
+const optionsContainer = document.getElementById(`options-${index}`);
+const feedbackDiv = document.getElementById(`feedback-${index}`);
+const selectedOption = document.querySelector(`input[name="question${index}"]:checked`);
+
+// Setze Feedback zurück
+feedbackDiv.style.display = 'none';
+feedbackDiv.className = 'feedback';
+feedbackDiv.innerHTML = '';
+
+if (selectedOption) {
+attemptedQuestions++;
+const userAnswer = selectedOption.value;
+
+if (userAnswer === q.answer) {
+score++;
+feedbackDiv.classList.add('correct');
+feedbackDiv.innerHTML = ✅ *Richtig!*;
+} else {
+feedbackDiv.classList.add('incorrect');
+feedbackDiv.innerHTML = `
+❌ *Falsch!*<br>
+*Korrekte Antwort:* ${q.answer}<br>
+*Erklärung:* ${q.explanation}
+`;
+}
+feedbackDiv.style.display = 'block';
+} else {
+feedbackDiv.classList.add('incorrect');
+feedbackDiv.innerHTML = ⚠️ *Keine Antwort gewählt.*;
+feedbackDiv.style.display = 'block';
+}
+});
+
+// Punktestand aktualisieren
+scoreBox.innerHTML = Dein aktueller Punktestand: *${score}* / *${questions.length}* (Bearbeitete Fragen: ${attemptedQuestions});
+
+// Optional: Nach oben scrollen, um den Punktestand sichtbar zu machen
+scoreBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Quiz beim Laden der Seite anzeigen
+renderQuiz();
+</script>
+
 </body>
 </html>
