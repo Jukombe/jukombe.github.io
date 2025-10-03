@@ -114,21 +114,42 @@ const questions = [
     question: "Welche funktionelle Gruppe ist der Kern sowohl von Aldehyden als auch von Ketonen?",
     options: ["Hydroxylgruppe (OH)", "Carboxylgruppe (COOH)", "Carbonylgruppe (C=O)", "Aminogruppe (NH2)"],
     answer: "Carbonylgruppe (C=O)",
-    explanation: "Die Carbonylgruppe (C=O) besteht aus einem doppelt gebundenen Kohlenstoffatom an einem Sauerstoffatom und ist zentral für die Aldehyde und Ketone der Kohlenhydrate."
+    explanation: "Die Carbonylgruppe (C=O) ist zentral für Aldehyde und Ketone. Bei Aldehyden am Ende, bei Ketonen in der Mitte."
   },
   {
     topic: "Fette",
     question: "Wie nennt man die Bindung, die Glycerin mit Fettsäuren verbindet, um ein Triglycerid zu bilden?",
     options: ["Peptidbindung", "Glycosidische Bindung", "Esterbindung", "Wasserstoffbrückenbindung"],
     answer: "Esterbindung",
-    explanation: "Fette entstehen durch die Reaktion eines Alkohols (Glycerin) mit einer Säure (Fettsäure)."
+    explanation: "Fette entstehen durch Reaktion von Glycerin mit Fettsäuren. Die Bindung heißt Esterbindung."
   },
   {
     topic: "Proteine",
     question: "Was ist die Primärstruktur eines Proteins?",
     options: ["Die dreidimensionale Faltung", "Die Verknüpfung mit einer prosthetischen Gruppe", "Die genaue Reihenfolge der Aminosäuren", "Die Helix- oder Faltblattstruktur"],
     answer: "Die genaue Reihenfolge der Aminosäuren",
-    explanation: "Die Primärstruktur beschreibt die lineare Reihenfolge der Aminosäuren."
+    explanation: "Die Primärstruktur beschreibt die lineare Abfolge der Aminosäuren, die alle weiteren Strukturen bestimmt."
+  },
+  {
+    topic: "Kohlenhydrate",
+    question: "Welche Monosaccharide bilden zusammen das Disaccharid Saccharose?",
+    options: ["Glucose und Galactose", "Glucose und Glucose", "Glucose und Fructose", "Fructose und Galactose"],
+    answer: "Glucose und Fructose",
+    explanation: "Saccharose (Haushaltszucker) besteht aus Glucose und Fructose, die über eine glycosidische Bindung verknüpft sind."
+  },
+  {
+    topic: "Fette",
+    question: "Welche Art von Fettsäuren findet man tendenziell in tierischen Fetten, die bei Raumtemperatur fest sind?",
+    options: ["Einfach ungesättigte Fettsäuren", "Mehrfach ungesättigte Fettsäuren", "Gesättigte Fettsäuren", "Essentielle Fettsäuren"],
+    answer: "Gesättigte Fettsäuren",
+    explanation: "Gesättigte Fettsäuren haben keine Doppelbindungen und sind dadurch starr. Sie kommen oft in tierischen Fetten vor."
+  },
+  {
+    topic: "Proteine",
+    question: "Wie nennt man die Aminosäuren, die der menschliche Körper nicht selbst herstellen kann und daher über die Nahrung aufnehmen muss?",
+    options: ["Saure Aminosäuren", "Basische Aminosäuren", "Essentielle Aminosäuren", "Hydrophile Aminosäuren"],
+    answer: "Essentielle Aminosäuren",
+    explanation: "Essentielle Aminosäuren müssen mit der Nahrung aufgenommen werden, da der Körper sie nicht selbst herstellen kann."
   }
 ];
 
@@ -174,7 +195,7 @@ function checkAnswers() {
         feedbackDiv.innerHTML = "✅ Richtig!";
       } else {
         feedbackDiv.classList.add('incorrect');
-        feedbackDiv.innerHTML = `❌ Falsch!<br>Korrekte Antwort: <b>${q.answer}</b><br>${q.explanation}`;
+        feedbackDiv.innerHTML = `❌ Falsch!<br><b>Korrekte Antwort:</b> ${q.answer}<br>${q.explanation}`;
       }
     } else {
       feedbackDiv.classList.add('incorrect');
@@ -192,3 +213,4 @@ renderQuiz();
 
 </body>
 </html>
+
